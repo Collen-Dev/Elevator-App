@@ -1,9 +1,5 @@
 ﻿using ElevatorSimulationApp.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Timers;
 
 namespace ElevatorSimulationApp.Services
 {
@@ -11,6 +7,7 @@ namespace ElevatorSimulationApp.Services
     {
         public List<Elevator> Elevators { get; } = new List<Elevator>();
         public int NumFloors { get; }
+        public Elevator elevator { get; set; }
 
         public Building(int numFloors, int numElevators)
         {
@@ -23,8 +20,7 @@ namespace ElevatorSimulationApp.Services
 
         public Elevator GetNearestElevator(int floor)
         {
-            // Implement SCAN scheduling algorithm to find the nearest elevator
-            // (e.g., FCFS, SCAN, or custom logic).
+            // We implement SCAN scheduling algorithm to find the nearest elevator
             Elevator nearestElevator = Elevators[0];
             int shortestDistance = Math.Abs(nearestElevator.CurrentFloor - floor);
 
@@ -43,7 +39,7 @@ namespace ElevatorSimulationApp.Services
 
         public void PickupPassenger(int floor, int destinationFloor)
         {
-            Elevator elevator = GetNearestElevator(floor);
+            elevator = GetNearestElevator(floor);
             elevator.Passengers.Add(new Passenger(destinationFloor));
         }
 
@@ -51,6 +47,19 @@ namespace ElevatorSimulationApp.Services
         {
             // Check if any passengers have reached their destination floor and remove them.
             elevator.Passengers.RemoveAll(p => p.DestinationFloor == elevator.CurrentFloor);
+
         }
+
+        //public void GetElevatorFloor(object sender, ElapsedEventArgs e)
+        //{
+
+        //    if (elevator.CurrentFloor == elevator.Passengers.FirstOrDefault()?.DestinationFloor)
+        //    {
+        //        DropOffPassengers(elevator);
+
+        //        int count = elevator.Passengers.Where(p=> p.DestinationFloor == elevator.CurrentFloor).Count();
+        //        Console.WriteLine($"{count} passengers getting off.");
+        //    }
+        //}
     }
 }

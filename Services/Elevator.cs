@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Timers;
 
 namespace ElevatorSimulationApp.Services
 {
@@ -34,8 +34,10 @@ namespace ElevatorSimulationApp.Services
                 Direction = ElevatorDirection.Stopped;
             }
 
-            Console.WriteLine($"Elevator moving {Direction} from floor {CurrentFloor} to floor {targetFloor}");
+            Console.WriteLine($"Elevator moving {Direction} from floor {CurrentFloor} to floor {targetFloor}.");
             CurrentFloor = targetFloor;
         }
+
+        //public int GetPassengersCount() => elevator.Passengers.Count;
     }
 }
